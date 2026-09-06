@@ -1,80 +1,116 @@
 # AGENTS.md
 
 ## Project
+ShiftMaster - Aplikasi pengelolaan data shift karyawan. Tech stack: Python/Flask backend, CSS/JS/Bootstrap 5 frontend, JSON file database (akan migrasi ke Firebase).
 
-Employee shift data management app (`data_perusahaan`). Tech stack: Python/Flask backend, CSS/JS/Bootstrap frontend, Firebase database, Vercel hosting.
-
-## Project Rules (from plan.md)
-
-- **Max 50 lines per file** — split code aggressively
-- Function names must match their primary function
-- Frontend: reusable component structure
-- Core logic → `controller/`, DB models → `models/`, templates → `templates/` (matching endpoints)
-- Entry point: `main.py`
+## Project Rules
+- **Max 50 baris per file** — split kode secara agresif
+- Nama function harus sesuai dengan fungsi utamanya
+- Frontend berstruktur component bersifat reusable
+- Logic inti → controller/, model → models/, template → templates/
 
 ## Project Structure
-
 ```
-main.py          # Entry point
-controller/      # App logic
-models/          # Database logic / data types
-templates/       # Frontend templates
-wireframe/       # HTML reference designs (NOT implementation)
+main.py              # Entry point (Flask app factory)
+controller/
+  auth.py            # Login/logout routes
+  auth_store.py      # User storage (JSON)
+  page.py            # Dashboard & register
+  module.py          # Route handler untuk 4 modul
+  roster.py          # API CRUD roster
+  tukar_shift.py     # API CRUD tukar shift
+  master_shift.py    # API CRUD master shift
+  rekap.py           # API CRUD rekap presensi
+models/
+  user.py            # Model user (sudah ada)
+  employee.py        # Model karyawan
+  shift.py           # Model shift type & assignment
+  swap.py            # Model tukar shift
+  attendance.py      # Model presensi & lembur
+templates/           # Jinja2 templates (Bootstrap 5)
+static/              # CSS (theme.css), JS (auth.js)
+seed.py              # Seed data untuk testing
 ```
 
 ## Setup
-
 ```bash
 python -m venv env
 env\Scripts\activate   # Windows
-pip install flask
+pip install -r requirements.txt
+python seed.py         # Buat sample data
 ```
 
 ## Running
-
 ```bash
 flask --app main run --debug --port 5000
 ```
 
-## Frontend Reference
+## Current Status
 
-Wireframes in `wireframe/` are **reference designs only** — they use Tailwind but the actual implementation must use **Bootstrap**. Convert Tailwind classes to Bootstrap equivalents when building templates.
+### Implemented
+- Auth system (login, register, session, rate limiting, audit log)
+- Dashboard dengan navigation ke 4 modul
+- Base template dengan sidebar navigation
+- Theme CSS (Material Design 3 tokens, dark mode)
+- Seed data admin (admin@company.com / admin123)
 
-### Wireframe Pages (4 modules)
+### In Progress
+- 4 module templates (sudah ada tapi hardcoded)
+- Models untuk bisnis data
 
-| Folder | Page | Route hint |
+### Not Yet Implemented
+- Backend logic untuk 4 modul
+- API endpoints untuk CRUD
+- Real data integration
+- Firebase integration
+- Export Excel/PDF
+- Role-based access control
+
+## Module Routes
+| Route | Page | Status |
 |---|---|---|
-| `master_roster_jadwal_shift/` | Master Roster / Jadwal Kerja & Shift | `/roster` |
-| `pengajuan_tukar_shift/` | Pengajuan Tukar Shift (swap requests) | `/tukar-shift` |
-| `pengaturan_master_shift/` | Pengaturan Master Shift (config) | `/master-shift` |
-| `rekap_presensi_lembur/` | Rekap Presensi & Lembur (attendance/overtime) | `/rekap` |
+| `/roster` | Master Roster / Jadwal Shift | Template ready, no backend |
+| `/tukar-shift` | Pengajuan Tukar Shift | Template ready, no backend |
+| `/master-shift` | Pengaturan Master Shift | Template ready, no backend |
+| `/rekap` | Rekap Presensi & Lembur | Template ready, no backend |
 
-Additional assets: `shiftmaster_logo/` (SVG logo), `sistem_penjadwalan_kerja_enterprise/DESIGN.md` (design tokens).
-
-### Design Tokens (from DESIGN.md)
-
-Use these exact values when building templates:
-
-- **Font:** Source Sans 3 (400/600/700)
-- **Primary:** `#0059bb` — action drivers, active tabs, CTAs
-- **Tertiary:** `#006574` — secondary actions, accent
-- **Error:** `#ba1a1a` — alerts, understaffed warnings
-- **Surface bg:** `#f7f9ff`, card bg: `#ffffff`, border: `#c1c6d7`
-- **Border radius:** `0.25rem` (cards), `0.125rem` (inputs), full (badges/chips)
-- **Shift color coding:** Pagi=`#0059bb`, Siang=`#008093`, Malam=`#2b3137`, Off=`#dde3eb`
-- **Spacing scale:** `spacer-1`=4px, `spacer-2`=8px, `spacer-3`=16px, `spacer-4`=24px
-
-### Bootstrap Conversion Notes
-
-- Wireframe uses utility classes (e.g. `flex`, `rounded`, `shadow-sm`) → use Bootstrap equivalents
-- Modals in wireframes are vanilla JS toggle → use Bootstrap Modal component
-- Tables use sticky columns → use Bootstrap `table-responsive` + custom CSS for pinned columns
-- Badges/chips use inline color coding → map to Bootstrap badge/bg utility classes
+## Data Models
+- **User** — email, nama, role, password_hash
+- **Employee** — id, nama, nip, nik, department, position
+- **ShiftType** — code, name, start_time, end_time, color
+- **ShiftAssignment** — employee_id, date, shift_code
+- **SwapRequest** — id, requester, replacement, reason, status
+- **Attendance** — employee_id, date, check_in, check_out, overtime
 
 ## Conventions
+- Gunakan Flask blueprints untuk menjaga file < 50 baris
+- Storage menggunakan JSON files (auth_store.py pattern)
+- Setiap model punya to_dict() dan from_dict()
+- Template menggunakan Jinja2 + Bootstrap 5
+- Route protection: cek session["user_id"]
+- ID generated menggunakan UUID atau timestamp
 
-- Use Flask blueprints to keep files under the 50-line limit
-- Firebase is the database — no SQLAlchemy/ORM needed
-- Reference skill: `skill.md` (Flask patterns and examples)
-- Hosted on Vercel — check `vercel.json` for routing config when it exists
-- Templates match routes: `templates/roster.html`, `templates/tukar-shift.html`, etc.
+## Template Pattern
+```python
+# Controller
+@bp.route("/endpoint")
+def handler():
+    err = login_required()
+    if err: return err
+    data = load_data()
+    return render_template("page.html", items=data)
+
+# Template
+{% extends "base.html" %}
+{% block content %}
+<!-- isi konten -->
+{% endblock %}
+```
+
+## Seed Data
+Jalankan `python seed.py` untuk membuat:
+- Admin user: admin@company.com / admin123
+- 10 sample karyawan (berbagai department)
+- 4 shift types (Pagi, Siang, Malam, Off)
+- Sample roster 1 minggu
+- Sample pengajuan tukar shift

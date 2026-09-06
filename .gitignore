@@ -1,7 +1,52 @@
-__pycache__/
-env
-.env
-wireframe/
+# Data / Database (RAHASIA)
 users.json
-seed.py
+employees.json
+assignments.json
+swaps.json
+attendance.json
+shift_types.json
+audit_log.json
+*.json
+
+# Environment / Secrets
+.env
+.env.*
+SECRET_KEY
+
+# Python
+__pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+env/
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Seed & Dev Tools
+seed.py
+
+# Wireframe (design reference, bukan source)
+wireframe/
+
+# Logs
+*.log
+logs/
+
+# Flask
+instance/

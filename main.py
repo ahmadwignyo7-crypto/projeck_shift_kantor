@@ -3,6 +3,10 @@ from flask import Flask
 from controller.auth import auth_bp
 from controller.page import page_bp
 from controller.module import mod_bp
+from controller.roster import roster_bp
+from controller.tukar_shift import swap_bp
+from controller.master_shift import master_bp
+from controller.rekap import rekap_bp
 
 
 def create_app():
@@ -15,6 +19,10 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/auth")
     app.register_blueprint(page_bp)
     app.register_blueprint(mod_bp)
+    app.register_blueprint(roster_bp)
+    app.register_blueprint(swap_bp)
+    app.register_blueprint(master_bp)
+    app.register_blueprint(rekap_bp)
 
     return app
 
