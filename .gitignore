@@ -50,3 +50,5 @@ logs/
 
 # Flask
 instance/
+
+.vercel
