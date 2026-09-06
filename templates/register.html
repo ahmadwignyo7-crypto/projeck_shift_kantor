@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Daftar — ShiftMaster{% endblock %}
+
+{% block auth_content %}
+<div class="bg-surface min-vh-100 d-flex align-items-center">
+    <div class="container py-5">
+        <div style="max-width:400px; margin:0 auto;">
+            <div class="text-center mb-4">
+                <svg style="width:48px; height:48px;" viewBox="0 0 40 40">
+                    <rect width="40" height="40" rx="8" fill="#0059bb"/>
+                    <circle cx="20" cy="20" r="12" fill="none" stroke="#fff" stroke-width="2.5"/>
+                    <path d="M20 12 V20 H25" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                    <circle cx="27" cy="13" r="3" fill="#ffc107"/>
+                </svg>
+                <h1 class="h4 fw-bold text-on-surface mt-2">Daftar Akun Baru</h1>
+                <p class="text-secondary small">Buat akun untuk mengakses ShiftMaster</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <span class="material-symbols-outlined me-2">error</span>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('page.register') }}">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; letter-spacing:0.04em;">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama lengkap" required autofocus>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; letter-spacing:0.04em;">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="nama@contoh.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; letter-spacing:0.04em;">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Minimal 6 karakter" required minlength="6">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password" title="Tampilkan/Sembunyikan password">
+                                    <span class="material-symbols-outlined" style="font-size:1.1rem;">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn w-100 text-white mb-3 fw-semibold" style="background:var(--primary); padding:0.75rem;">Daftar</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <span class="text-secondary small">Sudah punya akun? </span>
+                <a href="{{ url_for('auth.login') }}" class="small text-decoration-none fw-semibold" style="color:var(--primary);">Masuk</a>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn btn-sm btn-outline-secondary" id="themeToggle" title="Toggle dark mode">
+                    <span class="material-symbols-outlined" style="font-size:1rem;">dark_mode</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

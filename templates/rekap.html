@@ -1,0 +1,439 @@
+{% extends "base.html" %}
+
+{% block title %}Rekap Presensi — ShiftMaster{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="d-flex align-items-center gap-1 text-secondary" style="font-size:0.85rem;">
+    <span style="color:var(--text-secondary);">Home</span>
+    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+    <span style="color:var(--text-secondary);">Presensi</span>
+    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+    <span class="fw-semibold" style="color:var(--text-on-surface);">Rekapitulasi Presensi & Jam Kerja</span>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row md-items-center justify-content-between mb-3 gap-3">
+    <div>
+        <h1 class="h4 fw-bold" style="color:var(--text-on-surface);">Rekapitulasi Presensi & Lembur Karyawan</h1>
+        <span class="badge" style="background:var(--secondary-fixed); color:var(--on-secondary-fixed); font-size:0.8rem;">Periode Terbuka</span>
+    </div>
+    <div class="d-flex gap-2">
+        <div class="d-inline-flex align-items-center gap-2 px-3 py-2 rounded" style="background:var(--bg-surface-lowest); color:var(--text-on-surface); border:1px solid var(--border-light); cursor:pointer;">
+            <span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">calendar_month</span>
+            <span class="fw-semibold" style="font-size:0.9rem;">Bulan: Mei 2024</span>
+            <span class="material-symbols-outlined" style="font-size:16px; color:var(--text-secondary);">arrow_drop_down</span>
+        </div>
+        <button class="btn btn-sm d-inline-flex align-items-center gap-2 text-white" style="background:var(--tertiary-container);">
+            <span class="material-symbols-outlined" style="font-size:18px;">table_chart</span>
+            <span class="fw-semibold">Unduh Rekap Payroll / Excel</span>
+        </button>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Rata-rata Kepatuhan Shift</span>
+                        <span class="fw-bold d-block mt-1" style="font-size:1.5rem; color:var(--text-on-surface);">96.4%</span>
+                    </div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; background:var(--primary-fixed); color:var(--primary);">
+                        <span class="material-symbols-outlined" style="font-size:22px;">verified</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top:1px solid var(--border-light);">
+                    <div class="d-flex align-items-center gap-1" style="color:var(--tertiary); font-size:0.85rem;">
+                        <span class="material-symbols-outlined" style="font-size:16px;">trending_up</span> +1.2% dari April
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Total Jam Lembur Bulan Ini</span>
+                        <span class="fw-bold d-block mt-1" style="font-size:1.5rem; color:var(--text-on-surface);">342 Jam</span>
+                    </div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; background:var(--tertiary-fixed); color:var(--on-tertiary-fixed);">
+                        <span class="material-symbols-outlined" style="font-size:22px;">more_time</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top:1px solid var(--border-light);">
+                    <span style="font-size:0.85rem; color:var(--text-secondary);">Biaya: Rp 42.8M Est.</span>
+                    <span class="px-2 py-0.5 rounded" style="background:var(--bg-surface-high); color:var(--text-secondary); font-size:0.75rem;">92 Slip Klaim</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Keterlambatan Check-in (&gt;15 mnt)</span>
+                        <span class="fw-bold d-block mt-1" style="font-size:1.5rem; color:var(--error);">8 Kasus</span>
+                    </div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; background:var(--error-container); color:var(--error);">
+                        <span class="material-symbols-outlined" style="font-size:22px;">timer_off</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top:1px solid var(--border-light);">
+                    <div class="d-flex align-items-center gap-1" style="color:var(--error); font-size:0.85rem;">
+                        <span class="material-symbols-outlined" style="font-size:16px;">priority_high</span> Perlu Peninjauan
+                    </div>
+                    <span class="rounded-circle d-inline-block" style="width:8px; height:8px; background:var(--error);"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Total Shift Terealisasi</span>
+                        <span class="fw-bold d-block mt-1" style="font-size:1.5rem; color:var(--text-on-surface);">1,240 Shift</span>
+                    </div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; background:var(--secondary-container); color:var(--on-secondary-container);">
+                        <span class="material-symbols-outlined" style="font-size:22px;">event_available</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top:1px solid var(--border-light);">
+                    <span style="font-size:0.85rem; color:var(--text-secondary);">Target: 1,280 Shift (96.8%)</span>
+                    <div class="progress flex-grow-1 ms-2" style="height:8px; max-width:64px;">
+                        <div class="progress-bar" style="width:96.8%; background:var(--primary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-3" style="border-radius:var(--radius-xl);">
+    <div class="card-body d-flex flex-column flex-lg-row lg-items-center justify-content-between gap-3">
+        <div class="d-flex flex-wrap align-items-center gap-3 flex-grow-1">
+            <div class="position-relative flex-grow-1" style="min-width:240px;">
+                <span class="material-symbols-outlined position-absolute" style="left:12px; top:50%; transform:translateY(-50%); font-size:18px; color:var(--text-secondary);">search</span>
+                <input type="text" class="form-control" id="searchInput" placeholder="Cari Nama Karyawan atau NIP..." style="padding-left:2.5rem;">
+            </div>
+            <select class="form-select" style="min-width:180px;">
+                <option>Semua Unit / Departemen</option>
+                <option>ICU & Rawat Intensif</option>
+                <option>IGD Emergency</option>
+                <option>Rawat Inap Terpadu</option>
+                <option>Kamtib / Keamanan</option>
+                <option>Farmasi & Lab</option>
+            </select>
+            <select class="form-select" style="min-width:160px;">
+                <option>Semua Status Kepatuhan</option>
+                <option>Tepat Waktu</option>
+                <option>Terlambat</option>
+                <option>Izin / Sakit</option>
+                <option>Alpha / Mangkir</option>
+            </select>
+            <div class="d-flex align-items-center gap-2 px-3 py-2 rounded" style="background:var(--bg-surface); cursor:pointer; color:var(--text-on-surface);">
+                <span class="material-symbols-outlined" style="font-size:18px; color:var(--text-secondary);">date_range</span>
+                <span class="fw-semibold" style="font-size:0.85rem;">15 Mei 2024</span>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-sm p-2" style="background:var(--bg-surface); color:var(--text-secondary);" title="Muat Ulang">
+                <span class="material-symbols-outlined" style="font-size:20px;">refresh</span>
+            </button>
+            <button class="btn btn-sm p-2" style="background:var(--bg-surface); color:var(--text-secondary);" title="Pengaturan Kolom">
+                <span class="material-symbols-outlined" style="font-size:20px;">view_column</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius:var(--radius-xl); overflow:hidden;">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0" style="font-size:0.85rem;">
+            <thead>
+                <tr style="background:var(--bg-surface-high); color:var(--text-secondary); text-transform:uppercase; font-size:0.75rem; letter-spacing:0.04em;">
+                    <th class="fw-semibold py-3 px-3">Tanggal</th>
+                    <th class="fw-semibold py-3 px-3">NIP & Nama Karyawan</th>
+                    <th class="fw-semibold py-3 px-3">Unit Kerja</th>
+                    <th class="fw-semibold py-3 px-3">Jadwal Shift</th>
+                    <th class="fw-semibold py-3 px-3">Check-in Aktual</th>
+                    <th class="fw-semibold py-3 px-3">Check-out Aktual</th>
+                    <th class="fw-semibold py-3 px-3">Status Kepatuhan</th>
+                    <th class="fw-semibold py-3 px-3">Jam Lembur</th>
+                    <th class="fw-semibold py-3 px-3 text-center">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="py-3 px-3">
+                        <div class="fw-semibold" style="color:var(--text-on-surface);">15 Mei 2024</div>
+                        <small style="color:var(--text-secondary);">Rabu</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:36px; height:36px; background:var(--primary-fixed); color:var(--on-primary-fixed); font-size:0.8rem;">BS</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface);">Budi Santoso</div>
+                                <small style="color:var(--text-secondary);">NIP 199105</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-3"><span class="px-2 py-0.5 rounded" style="background:var(--bg-surface); color:var(--text-on-surface); font-weight:600;">ICU</span></td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="rounded-circle d-inline-block" style="width:6px; height:6px; background:var(--primary);"></span>
+                            <span class="fw-bold" style="color:var(--primary); font-size:0.8rem;">Pagi</span>
+                        </div>
+                        <small style="color:var(--text-secondary);">07:00 - 15:00 WIB</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1" style="color:var(--text-on-surface);">
+                            <span class="material-symbols-outlined" style="font-size:16px; color:var(--tertiary);">login</span>
+                            <span class="fw-semibold">06:52 WIB</span>
+                        </div>
+                        <small style="color:var(--tertiary);">8 mnt awal</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1" style="color:var(--text-on-surface);">
+                            <span class="material-symbols-outlined" style="font-size:16px; color:var(--text-secondary);">logout</span>
+                            15:10 WIB
+                        </div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <span class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded" style="background:var(--secondary-fixed); color:var(--on-secondary-fixed); font-size:0.8rem;">
+                            <span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Tepat Waktu
+                        </span>
+                    </td>
+                    <td class="py-3 px-3"><span style="color:var(--text-secondary); font-weight:500;">0 Jam</span></td>
+                    <td class="py-3 px-3 text-center">
+                        <button class="btn btn-sm fw-semibold" style="background:var(--bg-surface-high); color:var(--text-on-surface);">Detail</button>
+                    </td>
+                </tr>
+                <tr style="background:var(--bg-surface-low);">
+                    <td class="py-3 px-3">
+                        <div class="fw-semibold" style="color:var(--text-on-surface);">15 Mei 2024</div>
+                        <small style="color:var(--text-secondary);">Rabu</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:36px; height:36px; background:var(--secondary-fixed-dim); color:var(--on-secondary-fixed); font-size:0.8rem;">SR</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface);">Siti Rahmawati</div>
+                                <small style="color:var(--text-secondary);">NIP 199411</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-3"><span class="px-2 py-0.5 rounded" style="background:var(--bg-surface); color:var(--text-on-surface); font-weight:600;">IGD</span></td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="rounded-circle d-inline-block" style="width:6px; height:6px; background:var(--tertiary-container);"></span>
+                            <span class="fw-bold" style="color:var(--tertiary); font-size:0.8rem;">Siang</span>
+                        </div>
+                        <small style="color:var(--text-secondary);">14:00 - 22:00 WIB</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1" style="color:var(--error);">
+                            <span class="material-symbols-outlined" style="font-size:16px;">warning</span>
+                            <span class="fw-bold">14:18 WIB</span>
+                        </div>
+                        <small style="color:var(--error);">+18 mnt terlambat</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1" style="color:var(--text-on-surface);">
+                            <span class="material-symbols-outlined" style="font-size:16px; color:var(--text-secondary);">logout</span>
+                            22:05 WIB
+                        </div>
+                    </td>
+                    <td class="py-3 px-3">
+                        <span class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded" style="background:var(--error-container); color:var(--error); font-size:0.8rem; font-weight:600;">
+                            <span class="material-symbols-outlined" style="font-size:14px;">schedule</span> Terlambat 18 mnt
+                        </span>
+                    </td>
+                    <td class="py-3 px-3"><span style="color:var(--text-secondary); font-weight:500;">0 Jam</span></td>
+                    <td class="py-3 px-3 text-center">
+                        <button class="btn btn-sm fw-semibold" style="background:rgba(186,26,26,0.1); color:var(--error);">Verifikasi</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="py-3 px-3">
+                        <div class="fw-semibold" style="color:var(--text-on-surface);">15 Mei 2024</div>
+                        <small style="color:var(--text-secondary);">Rabu</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:36px; height:36px; background:var(--tertiary-fixed); color:var(--on-tertiary-fixed); font-size:0.8rem;">AR</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface);">drg. Anita Rahman</div>
+                                <small style="color:var(--text-secondary);">NIP 198802</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="py-3 px-3"><span class="px-2 py-0.5 rounded" style="background:var(--bg-surface); color:var(--text-on-surface); font-weight:600;">Rawat Inap</span></td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1">
+                            <span class="rounded-circle d-inline-block" style="width:6px; height:6px; background:var(--inverse-surface);"></span>
+                            <span class="fw-bold" style="color:var(--inverse-surface); font-size:0.8rem;">Malam</span>
+                        </div>
+                        <small style="color:var(--text-secondary);">21:00 - 07:00 WIB</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1" style="color:var(--text-on-surface);">
+                            <span class="material-symbols-outlined" style="font-size:16px; color:var(--tertiary);">login</span>
+                            <span class="fw-semibold">20:45 WIB</span>
+                        </div>
+                        <small style="color:var(--tertiary);">15 mnt awal</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div class="d-flex align-items-center gap-1 fw-bold" style="color:var(--primary);">
+                            <span class="material-symbols-outlined" style="font-size:16px;">access_time_filled</span>
+                            09:30 WIB
+                        </div>
+                        <small style="color:var(--primary);">+2.5 jam overtime</small>
+                    </td>
+                    <td class="py-3 px-3">
+                        <span class="d-inline-flex align-items-center gap-1 px-2 py-1 rounded" style="background:var(--secondary-fixed); color:var(--on-secondary-fixed); font-size:0.8rem;">
+                            <span class="material-symbols-outlined" style="font-size:14px;">check_circle</span> Tepat Waktu
+                        </span>
+                    </td>
+                    <td class="py-3 px-3">
+                        <div>
+                            <span class="fw-bold" style="color:var(--primary); font-size:0.9rem;">+2.5 Jam</span>
+                            <br><span class="px-2 py-0.5 rounded-pill" style="background:var(--tertiary-fixed); color:var(--on-tertiary-fixed); font-size:0.75rem;">Lembur Operasi Cito</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-3 text-center">
+                        <button class="btn btn-sm text-white fw-semibold" style="background:var(--primary);">Review Lembur</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="px-4 py-3 d-flex flex-column flex-sm-row align-items-center justify-content-between gap-3" style="border-top:1px solid var(--border-light);">
+        <div style="color:var(--text-secondary); font-size:0.85rem;">
+            Menampilkan <span class="fw-semibold" style="color:var(--text-on-surface);">1-10</span> dari <span class="fw-semibold" style="color:var(--text-on-surface);">156</span> data
+        </div>
+        <nav aria-label="Pagination Presensi">
+            <ul class="pagination pagination-sm mb-0">
+                <li class="page-item disabled"><a class="page-link" href="#"><span class="material-symbols-outlined" style="font-size:18px;">chevron_left</span></a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+                <li class="page-item"><a class="page-link" href="#">16</a></li>
+                <li class="page-item"><a class="page-link" href="#"><span class="material-symbols-outlined" style="font-size:18px;">chevron_right</span></a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<div class="row g-4 mt-3">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined" style="color:var(--primary); font-size:20px;">analytics</span>
+                        <h2 class="fw-bold mb-0" style="font-size:1rem; color:var(--text-on-surface);">Distribusi Overtime per Unit</h2>
+                    </div>
+                    <span class="text-uppercase fw-bold" style="font-size:0.75rem; color:var(--text-secondary); letter-spacing:0.04em;">Mei 2024</span>
+                </div>
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:0.85rem;">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">Rawat Inap & Bedah</span>
+                            <span class="fw-bold" style="color:var(--text-secondary);">148 Jam (43%)</span>
+                        </div>
+                        <div class="progress" style="height:6px;">
+                            <div class="progress-bar" style="width:43%; background:var(--primary);"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:0.85rem;">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">IGD Emergency</span>
+                            <span class="fw-bold" style="color:var(--text-secondary);">96 Jam (28%)</span>
+                        </div>
+                        <div class="progress" style="height:6px;">
+                            <div class="progress-bar" style="width:28%; background:var(--tertiary-container);"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:0.85rem;">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">ICU & HCU</span>
+                            <span class="fw-bold" style="color:var(--text-secondary);">62 Jam (18%)</span>
+                        </div>
+                        <div class="progress" style="height:6px;">
+                            <div class="progress-bar" style="width:18%; background:var(--primary-fixed-dim);"></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="d-flex justify-content-between mb-1" style="font-size:0.85rem;">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">Logistik & Farmasi</span>
+                            <span class="fw-bold" style="color:var(--text-secondary);">36 Jam (11%)</span>
+                        </div>
+                        <div class="progress" style="height:6px;">
+                            <div class="progress-bar" style="width:11%; background:var(--secondary);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm h-100" style="border-radius:var(--radius-xl);">
+            <div class="card-body">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="material-symbols-outlined" style="color:var(--error); font-size:20px;">history</span>
+                    <h2 class="fw-bold mb-0" style="font-size:1rem; color:var(--text-on-surface);">Riwayat Audit Terakhir</h2>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    <div class="p-2 rounded" style="background:var(--bg-surface-low); font-size:0.85rem;">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">Login Sukses</span>
+                            <small style="color:var(--text-secondary);">06:45 WIB</small>
+                        </div>
+                        <small style="color:var(--text-secondary);">budi.santoso@rs-medical.co.id</small>
+                    </div>
+                    <div class="p-2 rounded" style="background:var(--bg-surface-low); font-size:0.85rem;">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold" style="color:var(--error);">Login Gagal</span>
+                            <small style="color:var(--text-secondary);">06:32 WIB</small>
+                        </div>
+                        <small style="color:var(--text-secondary);">anita.rahman@rs-medical.co.id — Password salah</small>
+                    </div>
+                    <div class="p-2 rounded" style="background:var(--bg-surface-low); font-size:0.85rem;">
+                        <div class="d-flex justify-content-between">
+                            <span class="fw-semibold" style="color:var(--text-on-surface);">Logout</span>
+                            <small style="color:var(--text-secondary);">22:15 WIB</small>
+                        </div>
+                        <small style="color:var(--text-secondary);">siti.rahmawati@rs-medical.co.id — Shift selesai</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('keyup', function(e) {
+            var val = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                row.style.display = text.includes(val) ? '' : 'none';
+            });
+        });
+    }
+});
+</script>
+{% endblock %}

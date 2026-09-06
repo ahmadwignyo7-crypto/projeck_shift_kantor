@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — ShiftMaster{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="d-flex align-items-center gap-1 text-secondary" style="font-size:0.85rem;">
+    <a href="{{ url_for('page.dashboard') }}" class="text-decoration-none hover:text-primary">Home</a>
+    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+    <span class="text-on-surface fw-semibold">Dashboard</span>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4 text-center">
+                <span class="material-symbols-outlined" style="font-size:3rem; color:var(--primary);">dashboard</span>
+                <h2 class="h4 fw-bold mt-3">Selamat Datang, {{ nama }}!</h2>
+                <p class="text-secondary">Anda berhasil masuk ke sistem ShiftMaster.</p>
+                <p class="text-secondary small">Role: <span class="badge bg-primary">{{ role }}</span></p>
+            </div>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-sm-6 col-lg-3">
+                <a href="{{ url_for('mod.roster') }}" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm h-100 hover-shadow" style="transition: box-shadow 0.2s;">
+                        <div class="card-body">
+                            <span class="material-symbols-outlined" style="color:var(--primary); font-size:2rem;">table_chart</span>
+                            <h6 class="fw-bold mt-2" style="color:var(--text-on-surface);">Master Roster</h6>
+                            <p class="text-secondary small mb-0">Lihat dan kelola jadwal shift</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <a href="{{ url_for('mod.tukar_shift') }}" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm h-100 hover-shadow" style="transition: box-shadow 0.2s;">
+                        <div class="card-body">
+                            <span class="material-symbols-outlined" style="color:var(--tertiary); font-size:2rem;">swap_horiz</span>
+                            <h6 class="fw-bold mt-2" style="color:var(--text-on-surface);">Tukar Shift</h6>
+                            <p class="text-secondary small mb-0">Ajukan pertukaran jadwal</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <a href="{{ url_for('mod.master_shift') }}" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm h-100 hover-shadow" style="transition: box-shadow 0.2s;">
+                        <div class="card-body">
+                            <span class="material-symbols-outlined" style="color:var(--secondary); font-size:2rem;">settings</span>
+                            <h6 class="fw-bold mt-2" style="color:var(--text-on-surface);">Master Shift</h6>
+                            <p class="text-secondary small mb-0">Konfigurasi pola shift</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <a href="{{ url_for('mod.rekap') }}" class="text-decoration-none">
+                    <div class="card border-0 shadow-sm h-100 hover-shadow" style="transition: box-shadow 0.2s;">
+                        <div class="card-body">
+                            <span class="material-symbols-outlined" style="color:var(--error); font-size:2rem;">fact_check</span>
+                            <h6 class="fw-bold mt-2" style="color:var(--text-on-surface);">Rekap Presensi</h6>
+                            <p class="text-secondary small mb-0">Rekapitulasi kehadiran & lembur</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,346 @@
+{% extends "base.html" %}
+
+{% block title %}Master Roster — ShiftMaster{% endblock %}
+
+{% block breadcrumb %}
+<nav aria-label="Breadcrumb" class="d-flex align-items-center gap-1 text-secondary" style="font-size:0.85rem;">
+    <a href="{{ url_for('page.dashboard') }}" class="text-decoration-none" style="color:var(--text-secondary);">Home</a>
+    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+    <a href="#" class="text-decoration-none" style="color:var(--text-secondary);">Penjadwalan</a>
+    <span class="material-symbols-outlined" style="font-size:14px;">chevron_right</span>
+    <span class="fw-semibold" style="color:var(--text-on-surface);">Master Roster</span>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-md-row md-items-center md-justify-content-between mb-3 gap-3">
+    <div>
+        <h1 class="h4 fw-bold" style="color:var(--text-on-surface);">Master Roster Jadwal Kerja & Shift</h1>
+        <span class="badge" style="background:var(--primary-fixed); color:var(--on-primary-fixed-variant); font-size:0.7rem; text-transform:uppercase;">Periode Aktif</span>
+    </div>
+    <div class="d-flex flex-wrap align-items-center gap-2">
+        <div class="d-inline-flex align-items-center bg-white rounded p-1 shadow-sm" style="border:1px solid var(--border-light);">
+            <button class="btn btn-sm p-1" style="color:var(--text-secondary);" title="Minggu Sebelumnya">
+                <span class="material-symbols-outlined" style="font-size:20px;">chevron_left</span>
+            </button>
+            <div class="d-flex align-items-center gap-1 px-2 fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">
+                <span class="material-symbols-outlined" style="font-size:18px; color:var(--primary);">calendar_today</span>
+                <span>13 - 19 Mei 2024</span>
+            </div>
+            <button class="btn btn-sm p-1" style="color:var(--text-secondary);" title="Minggu Berikutnya">
+                <span class="material-symbols-outlined" style="font-size:20px;">chevron_right</span>
+            </button>
+        </div>
+        <button class="btn btn-sm d-inline-flex align-items-center gap-1 shadow-sm" style="background:var(--bg-surface-highest); color:var(--text-on-surface); border:1px solid var(--border-light);">
+            <span class="material-symbols-outlined" style="font-size:18px;">file_download</span>
+            Ekspor Excel/PDF
+        </button>
+        <button class="btn btn-sm d-inline-flex align-items-center gap-1 shadow-sm text-white" style="background:var(--primary);" data-bs-toggle="modal" data-bs-target="#modalTambahJadwal">
+            <span class="material-symbols-outlined" style="font-size:18px;">add_circle</span>
+            Tambah / Atur Jadwal
+        </button>
+    </div>
+</div>
+
+<div class="row g-2 mb-3">
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border:1px solid var(--border-light) !important;">
+            <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                <div>
+                    <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Personil</span>
+                    <span class="fw-bold" style="font-size:1.1rem; color:var(--text-on-surface);">48</span>
+                    <span class="small" style="color:var(--text-secondary);">/ 50 Staf</span>
+                </div>
+                <span class="material-symbols-outlined" style="color:var(--primary); font-size:20px;">groups</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border:1px solid var(--border-light) !important;">
+            <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                <div>
+                    <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Keterisian</span>
+                    <span class="fw-bold" style="font-size:1.1rem; color:var(--tertiary);">98%</span>
+                    <span class="fw-semibold small" style="color:var(--tertiary);">Optimal</span>
+                </div>
+                <span class="material-symbols-outlined" style="color:var(--tertiary); font-size:20px;">verified</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card shadow-sm h-100" style="border:1px solid rgba(186,26,26,0.2) !important; background:rgba(255,218,214,0.3) !important;">
+            <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                <div>
+                    <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--error); letter-spacing:0.04em;">Kurang Staf</span>
+                    <span class="fw-bold" style="font-size:1.1rem; color:var(--error);">2 Posisi</span>
+                    <span class="small" style="color:var(--error);">(Sab-Min)</span>
+                </div>
+                <span class="material-symbols-outlined" style="color:var(--error); font-size:20px;">error_outline</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card border-0 shadow-sm h-100" style="border:1px solid var(--border-light) !important;">
+            <div class="card-body d-flex justify-content-between align-items-center py-2 px-3">
+                <div>
+                    <span class="d-block fw-bold text-uppercase" style="font-size:0.7rem; color:var(--text-secondary); letter-spacing:0.04em;">Review Tukar</span>
+                    <span class="fw-bold" style="font-size:1.1rem; color:var(--text-on-surface);">3</span>
+                    <span class="fw-semibold small" style="color:var(--text-secondary);">Menunggu</span>
+                </div>
+                <span class="material-symbols-outlined" style="color:var(--primary); font-size:20px;">pending_actions</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm mb-3" style="border:1px solid var(--border-light) !important;">
+    <div class="card-body d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2 py-2 px-3" style="background:var(--bg-surface-low);">
+        <div class="d-flex flex-wrap align-items-center gap-2 flex-grow-1">
+            <div class="position-relative flex-grow-1" style="min-width:220px;">
+                <span class="material-symbols-outlined position-absolute" style="left:8px; top:50%; transform:translateY(-50%); font-size:18px; color:var(--text-secondary);">search</span>
+                <input type="text" class="form-control" id="searchPersonil" placeholder="Cari Nama atau NIP staf..." style="padding-left:2rem; background:var(--bg-surface-lowest);">
+            </div>
+            <select class="form-select" style="min-width:160px; background:var(--bg-surface-low); border-color:var(--border-color);">
+                <option>Semua Unit Kerja (5)</option>
+                <option>Instalasi Rawat Inap</option>
+                <option>Unit Perawatan Intensif (ICU)</option>
+                <option>Instalasi Gawat Darurat (IGD)</option>
+                <option>Instalasi Farmasi</option>
+                <option>Keamanan</option>
+            </select>
+            <select class="form-select" style="min-width:150px; background:var(--bg-surface-low); border-color:var(--border-color);">
+                <option>Semua Shift</option>
+                <option>Pagi (07:00-15:00)</option>
+                <option>Siang (14:00-22:00)</option>
+                <option>Malam (21:00-07:00)</option>
+                <option>Off / Libur</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm" style="border-radius:var(--radius-xl); overflow:hidden;">
+    <div class="p-3 d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-2" style="background:var(--bg-surface-low);">
+        <div class="d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined" style="color:var(--primary); font-size:22px;">table_chart</span>
+            <h2 class="fw-bold mb-0" style="font-size:1rem; color:var(--text-on-surface);">Matriks Penugasan Shift Mingguan</h2>
+            <span class="px-2 py-0.5 rounded" style="background:var(--bg-surface-highest); color:var(--text-secondary); font-size:0.75rem;">W20-2024</span>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="small" style="color:var(--text-secondary);">Tampilan:</span>
+            <div class="d-inline-flex p-0.5 rounded" style="background:var(--bg-surface-highest);">
+                <button class="btn btn-sm py-0 px-2 fw-semibold" style="background:var(--bg-surface-lowest); color:var(--primary); font-size:0.8rem;">Mingguan</button>
+                <button class="btn btn-sm py-0 px-2" style="color:var(--text-secondary); font-size:0.8rem;">Bulanan</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover mb-0" style="font-size:0.85rem;">
+            <thead>
+                <tr style="background:var(--bg-surface-high);">
+                    <th class="fw-semibold" style="min-width:250px; color:var(--text-on-surface); position:sticky; left:0; z-index:10; background:var(--bg-surface-high);">Informasi Karyawan & Divisi</th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--text-on-surface);">Senin<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">13 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--text-on-surface);">Selasa<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">14 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--text-on-surface);">Rabu<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">15 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--text-on-surface);">Kamis<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">16 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--text-on-surface);">Jumat<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">17 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--error); background:rgba(221,227,235,0.4);">Sabtu<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">18 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:110px; color:var(--error); background:rgba(221,227,235,0.4);">Minggu<br><span class="fw-normal" style="color:var(--text-secondary); font-size:0.75rem;">19 Mei</span></th>
+                    <th class="text-center fw-semibold" style="min-width:80px; color:var(--text-secondary);">Total Jam</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="position:sticky; left:0; z-index:5; background:var(--bg-card);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; background:var(--primary-fixed); color:var(--primary); font-size:0.8rem;">AR</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">drg. Anita Rahman</div>
+                                <div style="font-size:0.75rem; color:var(--text-secondary);">NIP: 198802 • <span style="color:var(--tertiary); font-weight:600;">Rawat Inap</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center fw-semibold" style="color:var(--text-on-surface);">40 Jam</td>
+                </tr>
+                <tr style="background:var(--bg-surface-low);">
+                    <td style="position:sticky; left:0; z-index:5; background:var(--bg-surface-low);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; background:var(--secondary-container); color:var(--on-secondary-container); font-size:0.8rem;">BS</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">Budi Santoso, S.Kep</div>
+                                <div style="font-size:0.75rem; color:var(--text-secondary);">NIP: 199105 • <span style="color:var(--error); font-weight:600;">ICU</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-2"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center fw-semibold" style="color:var(--text-on-surface);">44 Jam</td>
+                </tr>
+                <tr>
+                    <td style="position:sticky; left:0; z-index:5; background:var(--bg-card);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; background:var(--tertiary-fixed); color:var(--on-tertiary-fixed); font-size:0.8rem;">SR</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">Siti Rahmawati, A.Md.Kep</div>
+                                <div style="font-size:0.75rem; color:var(--text-secondary);">NIP: 199411 • <span style="color:var(--primary); font-weight:600;">IGD</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-2"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2 position-relative">
+                        <span class="badge bg-shift-siang w-100 py-1">SIANG</span>
+                        <span class="position-absolute rounded-circle" style="top:-2px; right:-2px; width:10px; height:10px; background:#ffc107; border:2px solid var(--bg-card);" title="Pengajuan Tukar"></span>
+                    </td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center fw-semibold" style="color:var(--text-on-surface);">42 Jam</td>
+                </tr>
+                <tr style="background:var(--bg-surface-low);">
+                    <td style="position:sticky; left:0; z-index:5; background:var(--bg-surface-low);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; background:var(--primary-fixed-dim); color:var(--on-primary-fixed); font-size:0.8rem;">HK</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">Hendra Kurniawan</div>
+                                <div style="font-size:0.75rem; color:var(--text-secondary);">NIP: 198509 • <span style="color:var(--tertiary); font-weight:600;">Farmasi</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center fw-semibold" style="color:var(--text-on-surface);">40 Jam</td>
+                </tr>
+                <tr>
+                    <td style="position:sticky; left:0; z-index:5; background:var(--bg-card);">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; background:var(--bg-surface-highest); color:var(--text-on-surface); font-size:0.8rem;">RP</div>
+                            <div>
+                                <div class="fw-semibold" style="color:var(--text-on-surface); font-size:0.9rem;">Rian Pratama</div>
+                                <div style="font-size:0.75rem; color:var(--text-secondary);">NIP: 199607 • <span style="color:var(--text-secondary); font-weight:600;">Keamanan</span></div>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="text-center p-2"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-malam w-100 py-1">MALAM</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-off w-100 py-1">OFF</span></td>
+                    <td class="text-center p-2"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-pagi w-100 py-1">PAGI</span></td>
+                    <td class="text-center p-2" style="background:rgba(221,227,235,0.2);"><span class="badge bg-shift-siang w-100 py-1">SIANG</span></td>
+                    <td class="text-center fw-semibold" style="color:var(--text-on-surface);">46 Jam</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="p-3 d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3" style="background:var(--bg-surface-low);">
+        <div class="d-flex flex-wrap align-items-center gap-3">
+            <span class="fw-bold text-uppercase" style="font-size:0.75rem; color:var(--text-secondary);">Legenda Shift:</span>
+            <div class="d-flex align-items-center gap-1"><span class="rounded" style="width:14px; height:14px; background:var(--shift-pagi);"></span><small>Pagi (07:00-15:00)</small></div>
+            <div class="d-flex align-items-center gap-1"><span class="rounded" style="width:14px; height:14px; background:var(--shift-siang);"></span><small>Siang (14:00-22:00)</small></div>
+            <div class="d-flex align-items-center gap-1"><span class="rounded" style="width:14px; height:14px; background:var(--shift-malam);"></span><small>Malam (21:00-07:00)</small></div>
+            <div class="d-flex align-items-center gap-1"><span class="rounded" style="width:14px; height:14px; background:var(--shift-off);"></span><small>Libur / Off</small></div>
+            <div class="d-flex align-items-center gap-1"><span class="rounded-circle" style="width:14px; height:14px; background:#ffc107;"></span><small>Permintaan Tukar</small></div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <small style="color:var(--text-secondary);">Menampilkan 5 dari 48 Tenaga Medis</small>
+            <nav class="d-flex gap-1">
+                <button class="btn btn-sm" style="background:var(--bg-surface-highest); color:var(--text-secondary);" disabled><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
+                <button class="btn btn-sm fw-semibold" style="background:var(--primary); color:var(--on-primary);">1</button>
+                <button class="btn btn-sm fw-semibold" style="background:var(--bg-surface-highest); color:var(--text-secondary);">2</button>
+                <button class="btn btn-sm fw-semibold" style="background:var(--bg-surface-highest); color:var(--text-secondary);">3</button>
+                <button class="btn btn-sm" style="background:var(--bg-surface-highest); color:var(--text-secondary);"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalTambahJadwal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background:var(--bg-surface-low);">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="material-symbols-outlined" style="color:var(--primary); font-size:24px;">event_available</span>
+                    <h5 class="modal-title fw-bold">Tambah / Modifikasi Penugasan Shift</h5>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; color:var(--text-secondary);">Pilih Tenaga Kerja</label>
+                    <select class="form-select">
+                        <option>drg. Anita Rahman (NIP: 198802) - Rawat Inap</option>
+                        <option>Budi Santoso, S.Kep (NIP: 199105) - ICU</option>
+                        <option>Siti Rahmawati, A.Md.Kep (NIP: 199411) - IGD</option>
+                        <option>Hendra Kurniawan (NIP: 198509) - Farmasi</option>
+                        <option>Rian Pratama (NIP: 199607) - Keamanan</option>
+                    </select>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; color:var(--text-secondary);">Tanggal Mulai</label>
+                        <input type="date" class="form-control" value="2024-05-18">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold text-uppercase" style="font-size:0.8rem; color:var(--text-secondary);">Tipe Shift</label>
+                        <select class="form-select">
+                            <option>Pagi (07:00 - 15:00)</option>
+                            <option>Siang (14:00 - 22:00)</option>
+                            <option>Malam (21:00 - 07:00)</option>
+                            <option>Libur / Off</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="alert d-flex align-items-start gap-2 mt-3" style="background:var(--bg-surface-low); border:1px solid var(--border-color); color:var(--text-on-surface);">
+                    <span class="material-symbols-outlined mt-1" style="color:var(--primary); font-size:20px;">info</span>
+                    <div>
+                        <div class="fw-semibold">Ketentuan & Regulasi Shift</div>
+                        <small style="color:var(--text-secondary);">Maksimal jam kerja staf 48 jam/minggu dengan jeda istirahat minimal 12 jam antar shift berturut-turut.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="background:var(--bg-surface-low);">
+                <button type="button" class="btn" style="color:var(--text-secondary);" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn text-white" style="background:var(--primary);">Konfirmasi & Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var searchInput = document.getElementById('searchPersonil');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            var query = e.target.value.toLowerCase();
+            document.querySelectorAll('tbody tr').forEach(function(row) {
+                var text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        });
+    }
+});
+</script>
+{% endblock %}
